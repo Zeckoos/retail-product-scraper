@@ -1,6 +1,6 @@
-# Woolworths Products Scraper
+# Retail Products Scraper
 
-A Python scraper for Woolworths product metadata.
+A Python scraper that includes Woolworths product metadata.
 
 Features:
 - Product name, brand, price, package size
