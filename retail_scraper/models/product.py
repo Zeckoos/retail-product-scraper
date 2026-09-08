@@ -13,11 +13,14 @@ class Product:
     cup_string: Optional[str]
 
     ingredients: Optional[str]
-    country_of_origin: Optional[str]
-    origin_png: Optional[str]
-    origin_svg: Optional[str]
-    origin_percentage: Optional[str]
-    origin_country: Optional[str]
+
+    # Country of Origin (CoOL)
+    country_of_origin: Optional[str]  # Human-readable label (AltText)
+    origin_country: Optional[str]  # Country name
+    origin_percentage: Optional[str]  # Ingredient percentage
+    origin_png: Optional[str]  # PNG badge URL
+    origin_svg: Optional[str]  # SVG badge URL
+
     allergen_contains: Optional[str]
     allergen_may_be_present: Optional[str]
 

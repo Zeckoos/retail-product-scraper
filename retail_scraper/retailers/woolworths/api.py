@@ -1,5 +1,5 @@
 import logging
-from typing import Dict, Any, List, Optional
+from typing import Dict, Any, List
 
 logger = logging.getLogger(__name__)
 
@@ -37,19 +37,12 @@ class WoolworthsAPI:
         return blocks[0].get("Products", []) or []
 
     def product_detail(self, stock_code: int):
-        """GET detail endpoint — same as browser."""
+        """Fetch full detail JSON for a given stock code."""
         path = f"/apis/ui/product/detail/{stock_code}"
         data = self.client.get(path)
 
         if not isinstance(data, dict):
             logger.warning(f"Detail unavailable for stockcode={stock_code}")
             return None
-
-        # Normalise shape
-        # if "Product" in data:
-        #     return data["Product"]
-        #
-        # if "Products" in data and isinstance(data["Products"], list):
-        #     return data["Products"][0]
 
         return data

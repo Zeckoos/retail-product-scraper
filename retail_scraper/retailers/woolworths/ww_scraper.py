@@ -2,14 +2,14 @@ import logging
 from typing import List
 
 from core.base_client import BaseClient
+from retailers.base_retailer import BaseRetailer
 from retailers.woolworths.api import WoolworthsAPI
 from retailers.woolworths.parser import WoolworthsParser
 from models.product import Product
 
 logger = logging.getLogger(__name__)
 
-
-class WoolworthsScraper:
+class WoolworthsScraper(BaseRetailer):
     """
     High-level scraper that:
     - searches products

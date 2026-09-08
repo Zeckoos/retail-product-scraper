@@ -25,6 +25,14 @@ class WoolworthsParser:
 
     @staticmethod
     def _parse_country_of_origin(raw: Dict[str, Any]) -> Dict[str, Optional[str]]:
+        """
+            Parse CountryOfOriginLabel from top-level detail JSON.
+
+            Fallback rules:
+            - Prefer AltText (full human-readable label)
+            - If CountryOfOrigin is empty, still return AltText
+            - If both are empty, return None for all fields
+            """
         label = raw.get("CountryOfOriginLabel")
         if not isinstance(label, dict):
             return {
@@ -35,9 +43,16 @@ class WoolworthsParser:
                 "svg": None,
             }
 
+        alt = label.get("AltText")
+        country = label.get("CountryOfOrigin")
+
+        # Fallback: if country is empty but AltText exists, use AltText
+        if not country and alt:
+            country = alt
+
         return {
-            "text": label.get("AltText"),
-            "country": label.get("CountryOfOrigin"),
+            "text": alt,
+            "country": country,
             "percentage": label.get("IngredientPercentage"),
             "png": label.get("PngImageFile"),
             "svg": label.get("SvgImageFile"),

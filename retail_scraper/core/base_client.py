@@ -7,11 +7,14 @@ logger = logging.getLogger(__name__)
 
 class BaseClient:
     """
-    HTTP client using Chrome-like TLS fingerprints via tls-client.
-    Encapsulates session, headers, and retry/delay logic.
+    Browser‑accurate HTTP client using TLS fingerprinting.
+
+    This client is reusable across retailers. Retailer modules
+    should not hard‑code headers; instead, they can override or
+    extend these defaults if needed.
     """
 
-    BASE_URL = "https://www.woolworths.com.au"
+    BASE_URL = "https://www.woolworths.com.au" # Replace with retailer site
 
     def __init__(self, min_delay=0.7, max_delay=1.4):
         self.min_delay = min_delay
@@ -23,8 +26,8 @@ class BaseClient:
             random_tls_extension_order=True
         )
 
+        # Warm-up request to obtain cookies and CSRF token
         self.session.get(f"{self.BASE_URL}/shop/search/products")
-
         logging.info("Initialising Woolworths session…")
 
     def _sleep(self):
